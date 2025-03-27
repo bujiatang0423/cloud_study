@@ -1,9 +1,9 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.api.AccountClient;
 import com.example.api.AccountDTO;
 import com.example.base.ResultData;
-import com.example.service.AccountService;
 import com.example.service.OrderService;
 import com.example.domain.Order;
 import com.example.mapper.OrderMapper;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Random;
 
 
 /**
@@ -23,14 +24,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
     implements OrderService {
 
     @Autowired
-    private AccountService accountService;
+    private AccountClient accountClient;
 
     @Override
     public ResultData<String> selectByNo(String orderNo) {
-        final AccountDTO accountDTO = AccountDTO.builder().id(12).accountName("张三").accountCode("123")
+        Random random = new Random();
+        // 生成 1000 到 9999 之间的随机数
+        int randomNumber = random.nextInt(9000) + 1000;
+        final AccountDTO accountDTO = AccountDTO.builder().id(randomNumber).accountName("张三").accountCode(String.valueOf(randomNumber))
                 .amount(new BigDecimal("1234")).build();
 
-        return  accountService.insert(accountDTO);
+        return  accountClient.insert(accountDTO);
     }
 }
 

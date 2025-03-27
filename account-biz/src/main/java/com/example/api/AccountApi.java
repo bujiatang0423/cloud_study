@@ -15,8 +15,6 @@ import java.math.BigDecimal;
  */
 
 public interface AccountApi {
-
-
-
-
+    @PostMapping("/insert")
+    ResultData<String> insert(@RequestBody AccountDTO accountDTO);
 }

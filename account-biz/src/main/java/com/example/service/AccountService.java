@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * @author bujiatang
  */
-@FeignClient(name = "account-biz")
 public interface AccountService  {
-    @PostMapping("/insert")
-    ResultData<String> insert(@RequestBody AccountDTO accountDTO);
+    ResultData<String> insert(AccountDTO accountDTO);
 
 }
