@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.api.AccountClient;
 import com.example.api.AccountDTO;
@@ -33,7 +34,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order>
         int randomNumber = random.nextInt(9000) + 1000;
         final AccountDTO accountDTO = AccountDTO.builder().id(randomNumber).accountName("张三").accountCode(String.valueOf(randomNumber))
                 .amount(new BigDecimal("1234")).build();
-
         return  accountClient.insert(accountDTO);
     }
 }

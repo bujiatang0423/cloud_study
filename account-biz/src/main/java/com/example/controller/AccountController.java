@@ -1,6 +1,7 @@
 package com.example.controller;
 
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.example.api.AccountApi;
 import com.example.api.AccountDTO;
 import com.example.base.ResultData;
@@ -22,8 +23,9 @@ public class AccountController implements AccountApi {
 
     private final AccountService accountService;
 
-    @PostMapping("/insert")
     @Override
+    @PostMapping("/insert")
+    @SentinelResource(value = "insertAccount")
     public ResultData<String> insert(@RequestBody  AccountDTO accountDTO) {
         log.info("12312312312");
         return accountService.insert(accountDTO);
