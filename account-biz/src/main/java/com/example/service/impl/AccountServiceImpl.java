@@ -9,6 +9,7 @@ import com.example.service.AccountService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
 * @author bujiatang
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 * @createDate 2025-03-26 10:11:40
 */
 @Service
+@RestController
 public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account>
     implements AccountService {
     @Override

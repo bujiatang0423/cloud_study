@@ -8,12 +8,13 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author bujiatang
  */
-@FeignClient(name = "account-service")
-public interface AccountService extends IService<Account> {
+@FeignClient(name = "account-biz")
+public interface AccountService  {
     @PostMapping("/insert")
     ResultData<String> insert(@RequestBody AccountDTO accountDTO);
 
