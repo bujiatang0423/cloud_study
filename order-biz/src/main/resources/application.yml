@@ -17,6 +17,13 @@ spring:
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
 
+  sentinel:
+    transport:
+      # sentinel服务端地址
+      dashboard: 1.94.123.205:8858
+    # 取消延迟加载
+    eager: true
+
   mybatis-plus:
     configuration:
       # 设置日志实现类为标准输出日志

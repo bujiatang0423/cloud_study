@@ -1,5 +1,6 @@
 package com.example.api;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.example.base.ResultData;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
