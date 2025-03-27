@@ -25,7 +25,7 @@ public class AccountController implements AccountApi {
 
     @Override
     @PostMapping("/insert")
-    @SentinelResource(value = "insertAccount")
+    @SentinelResource(value = "insert")
     public ResultData<String> insert(@RequestBody  AccountDTO accountDTO) {
         log.info("12312312312");
         return accountService.insert(accountDTO);
