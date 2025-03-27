@@ -1,22 +1,74 @@
 package com.example.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.domain.ProductDTO;
 import com.example.service.ProductService;
-import domain.Product;
+import com.example.domain.Product;
 import com.example.mapper.ProductMapper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
-* @author bujiatang
-* @description 针对表【product】的数据库操作Service实现
-* @createDate 2025-03-26 10:11:40
-*/
+ * Description:
+ * Product Service 接口层
+ * @author JAVA日知录
+ * @date 2019/12/2 15:09
+ */
 @Service
+@Log4j2
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
-    implements ProductService {
+        implements ProductService {
+    private final ProductMapper productMapper;
 
+    @Override
+    public ProductDTO selectByCode(String productCode) {
+        ProductDTO productVO = new ProductDTO();
+        Product product = productMapper.selectByCode(productCode);
+        BeanUtils.copyProperties(product,productVO);
+        return productVO;
+    }
+
+
+    @Override
+    public ProductDTO updateProduct(ProductDTO productVO) {
+        Product product = new Product();
+        BeanUtils.copyProperties(productVO,product);
+        productMapper.updateById(product);
+        return productVO;
+    }
+
+    @Override
+    public ProductDTO insertProduct(ProductDTO productVO) {
+        Product product = new Product();
+        BeanUtils.copyProperties(productVO,product);
+        productMapper.insert(product);
+        return productVO;
+    }
+
+    @Override
+    public int deleteProduct(String productCode) {
+        return productMapper.deleteByCode(productCode);
+    }
+
+    @Transactional(rollbackFor = RuntimeException.class)
+    @Override
+    public void deduct(String productCode, Integer deductCount) {
+//        log.info("PRODUCT XID is: {}", RootContext.getXID());
+        Product product = productMapper.selectByCode(productCode);
+        if(null == product){
+            throw new RuntimeException("can't deduct product,product is null");
+        }
+        int surplus = product.getCount() - deductCount;
+        if(surplus < 0){
+            throw new RuntimeException("can't deduct product,product's count is less than deduct count");
+        }
+        product.setCount(surplus);
+        productMapper.updateById(product);
+    }
 }
-
-
-
 

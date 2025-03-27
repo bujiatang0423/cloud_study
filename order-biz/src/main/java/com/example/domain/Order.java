@@ -1,4 +1,4 @@
-package domain;
+package com.example.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -10,11 +10,12 @@ import lombok.Data;
 
 /**
  * 
- * @TableName product
+ * @author bujiatang
+ * @TableName order
  */
-@TableName(value ="product")
+@TableName(value ="order")
 @Data
-public class Product implements Serializable {
+public class Order implements Serializable {
     /**
      * 
      */
@@ -22,24 +23,29 @@ public class Product implements Serializable {
     private Integer id;
 
     /**
-     * 编码
+     * 
+     */
+    private String orderNo;
+
+    /**
+     * 
+     */
+    private String accountCode;
+
+    /**
+     * 
      */
     private String productCode;
 
     /**
-     * 名称
-     */
-    private String productName;
-
-    /**
-     * 库存数量
+     * 
      */
     private Integer count;
 
     /**
-     * 单价
+     * 
      */
-    private BigDecimal price;
+    private BigDecimal amount;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
