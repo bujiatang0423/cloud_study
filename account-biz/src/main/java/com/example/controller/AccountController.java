@@ -8,6 +8,7 @@ import com.example.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController implements AccountApi {
 
     private final AccountService accountService;
+
+    @PostMapping("/insert")
     @Override
     public ResultData<String> insert(@RequestBody  AccountDTO accountDTO) {
         log.info("12312312312");
