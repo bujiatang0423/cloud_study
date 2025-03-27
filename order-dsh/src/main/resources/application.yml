@@ -1,0 +1,29 @@
+server:
+  port: 48081
+spring:
+  application:
+    name: order-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 1.94.123.205:8848
+        username: nacos
+        password: nacos
+        namespace: dsh
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://1.94.123.205:3306/cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  main:
+    allow-bean-definition-overriding: true
+mybatis-plus:
+  type-aliases-package: com.example.domain
+
+  mybatis-plus:
+    configuration:
+      # 设置日志实现类为标准输出日志
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

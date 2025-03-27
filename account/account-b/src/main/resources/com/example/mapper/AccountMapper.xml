@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.account.mapper.AccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.account.domain.Account">
+            <id property="id" column="ID" jdbcType="INTEGER"/>
+            <result property="accountCode" column="ACCOUNT_CODE" jdbcType="VARCHAR"/>
+            <result property="accountName" column="ACCOUNT_NAME" jdbcType="VARCHAR"/>
+            <result property="amount" column="AMOUNT" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,ACCOUNT_CODE,ACCOUNT_NAME,
+        AMOUNT
+    </sql>
+</mapper>
