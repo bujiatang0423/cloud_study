@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
  * @author bujiatang
  */
 @Component
-@FeignClient(name = "account-biz")
-public interface AccountClient{
-
-
+@FeignClient(name = "order-biz")
+public interface OrderClient extends OrderFeign{
 }

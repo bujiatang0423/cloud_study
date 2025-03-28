@@ -3,28 +3,10 @@ server:
 spring:
   application:
     name: order-biz
-  cloud:
-    nacos:
-      discovery:
-        server-addr: 1.94.123.205:8848
-        username: nacos
-        password: nacos
-
-  datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://1.94.123.205:3306/cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
-
-  sentinel:
-    transport:
-      # sentinel服务端地址
-      dashboard: 1.94.123.205:8858
-    # 取消延迟加载
-    eager: true
-
-  mybatis-plus:
-    configuration:
-      # 设置日志实现类为标准输出日志
-      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+mybatis-plus:
+  configuration:
+    # 设置日志实现类为标准输出日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+logging:
+  level:
+    root: info

@@ -18,5 +18,6 @@ public interface OrderService extends IService<Order> {
      */
     ResultData<String> selectByNo(String orderNo);
 
+    void addOrder(String productNo);
 
 }

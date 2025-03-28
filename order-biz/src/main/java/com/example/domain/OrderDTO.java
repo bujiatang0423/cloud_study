@@ -1,6 +1,7 @@
 package com.example.domain;
 
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
  * @date 2019/12/16 16:39
  */
 @Data
+@Builder
 public class OrderDTO implements Serializable {
     private Integer id;
     private String orderNo;

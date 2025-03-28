@@ -1,5 +1,7 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.domain.ProductDTO;
 import com.example.service.ProductService;
@@ -23,52 +25,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product>
         implements ProductService {
-    private final ProductMapper productMapper;
 
     @Override
-    public ProductDTO selectByCode(String productCode) {
-        ProductDTO productVO = new ProductDTO();
-        Product product = productMapper.selectByCode(productCode);
-        BeanUtils.copyProperties(product,productVO);
-        return productVO;
-    }
+    public void reduceProduct(String productNo) {
+        final LambdaUpdateChainWrapper<Product> wrapper =
+                lambdaUpdate().eq(Product::getProductCode, productNo)
+                .setSql("count = count - 1");
 
-
-    @Override
-    public ProductDTO updateProduct(ProductDTO productVO) {
-        Product product = new Product();
-        BeanUtils.copyProperties(productVO,product);
-        productMapper.updateById(product);
-        return productVO;
-    }
-
-    @Override
-    public ProductDTO insertProduct(ProductDTO productVO) {
-        Product product = new Product();
-        BeanUtils.copyProperties(productVO,product);
-        productMapper.insert(product);
-        return productVO;
-    }
-
-    @Override
-    public int deleteProduct(String productCode) {
-        return productMapper.deleteByCode(productCode);
-    }
-
-    @Transactional(rollbackFor = RuntimeException.class)
-    @Override
-    public void deduct(String productCode, Integer deductCount) {
-//        log.info("PRODUCT XID is: {}", RootContext.getXID());
-        Product product = productMapper.selectByCode(productCode);
-        if(null == product){
-            throw new RuntimeException("can't deduct product,product is null");
-        }
-        int surplus = product.getCount() - deductCount;
-        if(surplus < 0){
-            throw new RuntimeException("can't deduct product,product's count is less than deduct count");
-        }
-        product.setCount(surplus);
-        productMapper.updateById(product);
+        this.update(wrapper);
     }
 }
 

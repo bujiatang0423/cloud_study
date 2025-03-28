@@ -2,10 +2,13 @@ package com.example.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.api.AccountDTO;
+import com.example.api.OrderClient;
+import com.example.api.ProductClient;
 import com.example.base.ResultData;
 import com.example.domain.Account;
 import com.example.mapper.AccountMapper;
 import com.example.service.AccountService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 */
 @Service
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account>
     implements AccountService {
+
+    private final OrderClient orderClient;
+    private final ProductClient productClient;
+
     @Override
     public ResultData<String> insert(AccountDTO accountDTO) {
         final Account account = new Account();
@@ -30,6 +38,12 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account>
         }else {
             return ResultData.fail();
         }
+    }
+
+    @Override
+    public ResultData<String> buy(String productCode) {
+        orderClient.addOrder(productCode);
+        return ResultData.success();
     }
 }
 
